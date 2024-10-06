@@ -3,7 +3,19 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { trackerReducer } from './store/tracker.reducers';
+import { TrackerEffects } from './store/tracker.effects';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration()]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideClientHydration(),
+    provideStore({tracker: trackerReducer}),
+    provideEffects([TrackerEffects])
+
+
+  ]
 };

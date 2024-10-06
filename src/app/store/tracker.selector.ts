@@ -1,0 +1,1 @@
+export const selectExpense = (state: {tracker: number}) => state.tracker;
