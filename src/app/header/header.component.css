@@ -1,0 +1,22 @@
+.navbar {
+    background-color: white; /* Adjust the background color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    
+}
+.navbar-brand {
+    display: flex;
+    align-items: center; /* Center logo vertically */
+    
+    
+}
+.navbar-brand img {
+    width: 130px; /* Adjust logo size */
+    height: auto;
+    
+}
+.nav-link {
+    color: #007BFF; /* Bootstrap primary color */
+}
+.nav-link:hover {
+    text-decoration: underline; /* Underline on hover for better UX */
+}
