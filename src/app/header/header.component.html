@@ -11,13 +11,13 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="#"> <i class="bi bi-house"></i> Home </a>
+                    <a class="nav-link" routerLink="/" routerLinkActive="selected" [routerLinkActiveOptions]="{exact: true}"> <i class="bi bi-house"></i> Home </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"> <i class="bi bi-plus-square"></i> Add Expense </a>
+                    <a class="nav-link" routerLink="./add-expense" routerLinkActive="selected"> <i class="bi bi-plus-square"></i> Add Expense </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"> <i class="bi bi-lightbulb"></i> Upcoming Features </a>
+                    <a class="nav-link" routerLink="./upcoming-features" routerLinkActive="selected"> <i class="bi bi-lightbulb"></i> Upcoming Features </a>
                 </li>
             </ul>
         </div>

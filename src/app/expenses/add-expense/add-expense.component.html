@@ -1,0 +1,46 @@
+<div class="container mt-4">
+    <h2>Enter Expense</h2>
+    
+    <!-- New Div to control the width -->
+    <div class="form-container">
+      <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="category" class="form-label">Expense Category</label>
+          <select formControlName="category" id="category" class="form-select" required>
+            <option value="">Select Category</option>
+            <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+          </select>
+          <div *ngIf="expenseForm.get('category')?.invalid && expenseForm.get('category')?.touched" class="text-danger">
+            Category is required.
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="remarks" class="form-label">Remarks</label>
+          <input type="text" formControlName="remarks" id="remarks" class="form-control" placeholder="Enter remarks" required />
+          <div *ngIf="expenseForm.get('remarks')?.invalid && expenseForm.get('remarks')?.touched" class="text-danger">
+            Remarks are required.
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="amount" class="form-label">Amount</label>
+          <input type="number" formControlName="amount" id="amount" class="form-control" placeholder="Enter amount" required />
+          <div *ngIf="expenseForm.get('amount')?.invalid && expenseForm.get('amount')?.touched" class="text-danger">
+            Amount is required and must be a positive number.
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="expenseDate" class="form-label">Expense Date</label>
+          <input type="date" formControlName="expenseDate" id="expenseDate" class="form-control" required />
+          <div *ngIf="expenseForm.get('expenseDate')?.invalid && expenseForm.get('expenseDate')?.touched" class="text-danger">
+            Expense date is required.
+          </div>
+        </div>
+  
+        <button type="submit" class="btn btn-primary" [disabled]="expenseForm.invalid">Submit</button>
+      </form>
+    </div>
+  </div>
+  
