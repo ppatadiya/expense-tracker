@@ -1,57 +1,42 @@
-<div class="expense-list">
-    <div class="expense-item">
-        <i class="expense-icon fas fa-shopping-cart"></i>
-        <div class="expense-details">
-            <div class="expense-type">Grocery</div>
-            <div class="expense-description">Potato bag 4</div>
-            <div class="expense-amount">$120.00</div>
-            <div class="transaction-date">Transaction Date: Oct 5, 2024</div>
-        </div>
-        <div class="action-buttons">
-            <button class="action-button edit-button">Edit</button>
-            <button class="action-button delete-button">Delete</button>
-        </div>
-    </div>
+<div class="expense-container">
+    <h2 class="expense-title">My Expenses</h2>
     
-    <div class="expense-item">
-        <i class="expense-icon fas fa-utensils"></i>
-        <div class="expense-details">
-            <div class="expense-type">Food</div>
-            <div class="expense-description">Dinner at restaurant</div>
-            <div class="expense-amount">$45.00</div>
-            <div class="transaction-date">Transaction Date: Oct 4, 2024</div>
-        </div>
-        <div class="action-buttons">
-            <button class="action-button edit-button">Edit</button>
-            <button class="action-button delete-button">Delete</button>
-        </div>
+    <div class="filter-container">
+        <label for="month-filter" class="filter-label">Filter by month:</label>
+        <select id="month-filter" class="month-filter">
+            <option value="all">All</option>
+            <option value="january">January</option>
+            <option value="february">February</option>
+            <option value="march">March</option>
+            <option value="april">April</option>
+            <option value="may">May</option>
+            <option value="june">June</option>
+            <option value="july">July</option>
+            <option value="august">August</option>
+            <option value="september">September</option>
+            <option value="october">October</option>
+            <option value="november">November</option>
+            <option value="december">December</option>
+        </select>
+        
     </div>
-    
-    <div class="expense-item">
-        <i class="expense-icon fas fa-gas-pump"></i>
-        <div class="expense-details">
-            <div class="expense-type">Fuel</div>
-            <div class="expense-description">Gasoline refill</div>
-            <div class="expense-amount">$60.00</div>
-            <div class="transaction-date">Transaction Date: Oct 3, 2024</div>
-        </div>
-        <div class="action-buttons">
-            <button class="action-button edit-button">Edit</button>
-            <button class="action-button delete-button">Delete</button>
-        </div>
-    </div>
-    
-    <div class="expense-item">
-        <i class="expense-icon fas fa-plane"></i>
-        <div class="expense-details">
-            <div class="expense-type">Travel</div>
-            <div class="expense-description">Flight to New York</div>
-            <div class="expense-amount">$300.00</div>
-            <div class="transaction-date">Transaction Date: Oct 2, 2024</div>
-        </div>
-        <div class="action-buttons">
-            <button class="action-button edit-button">Edit</button>
-            <button class="action-button delete-button">Delete</button>
-        </div>
+
+    <div class="expense-list">
+        
+        <div class="expense-item" *ngFor="let expense of expenses">
+            <i class="expense-icon fas fa-shopping-cart"></i>
+            <div class="expense-details">
+              <div class="expense-type">{{ expense.category }}</div>
+              <div class="expense-description">{{ expense.remarks }}</div>
+              <div class="expense-amount"> ${{ expense.amount }}</div>
+              <div class="transaction-date">Transaction Date: {{ expense.expenseDate | date:'MMM d, yyyy' }}</div>
+            </div>
+            <div class="action-buttons">
+              <button class="action-button edit-button" [routerLink]="['/edit-expense', expense.id]">Edit</button>
+              <button class="action-button delete-button">Delete</button>
+            </div>
+          </div>
+
+        
     </div>
 </div>

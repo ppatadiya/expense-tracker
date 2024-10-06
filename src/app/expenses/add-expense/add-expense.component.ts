@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { EXPENSE_CATEGORIES } from '../expense-categories';
+import { EXPENSE_CATEGORIES } from '../data/expense-categories-data';
 
 @Component({
   selector: 'app-add-or-update-expense',

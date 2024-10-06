@@ -6,6 +6,7 @@ export interface Expense {
     expenseDate: Date;
   }
 
+  
 export interface ExpenseCategory {
     id: number;
     name: string;

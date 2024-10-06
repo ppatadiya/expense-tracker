@@ -1,4 +1,4 @@
-import { ExpenseCategory } from "./expense.model";
+import { ExpenseCategory } from "../models/expense.model";
 
 export const EXPENSE_CATEGORIES: ExpenseCategory[] = [
     { id: 1, name: 'Grocery', icon: 'bi bi-basket' },
