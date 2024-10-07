@@ -3,10 +3,11 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angu
 import { CommonModule } from '@angular/common';
 import { EXPENSE_CATEGORIES } from '../data/expense-categories-data';
 import { Store } from '@ngrx/store';
-import { addExpense } from '../../store/tracker.actions';
+import { addExpense, editExpense } from '../../store/tracker.actions';
 import { Expense } from '../models/expense.model';
 import { selectTrackerState } from '../../store/tracker.selector';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ExpensesService } from '../expenses.service';
 
 @Component({
   selector: 'app-add-or-update-expense',
@@ -21,8 +22,17 @@ export class AddExpenseComponent implements OnInit {
   expenseForm: any;
   showModal: boolean = false;
 
-  constructor(private fb: FormBuilder, private store: Store, private router: Router) {
+  isEditMode: boolean = false;
+  expenseId: string | null = null;
+
+  constructor(private fb: FormBuilder,
+    private store: Store,
+    private router: Router,
+    private route: ActivatedRoute,
+    private expenseService: ExpensesService
+  ) {
     this.expenseForm = this.fb.group({
+      id: [''],
       category: ['', Validators.required],
       remarks: ['', Validators.required],
       amount: [null, [Validators.required, Validators.min(0)]],
@@ -31,37 +41,82 @@ export class AddExpenseComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log(this.categories);
-    
+    // Check if we're in edit mode (if the route contains an 'id')
+    this.route.paramMap.subscribe(params => {
+      this.expenseId = params.get('id');  // Get the 'id' from the route if present
+
+      if (this.expenseId) {
+        this.isEditMode = true;
+        this.loadExpenseData(this.expenseId);  // Load existing expense data for editing
+      }
+    });
+
+  }
+
+  // Load existing expense data
+  loadExpenseData(id: string): void {
+    const expense = this.expenseService.getExpenseById(id);  // Fetch from service or state
+    if (expense) {
+      console.log(expense);
+      this.expenseForm.patchValue({
+        id: expense.id,
+        category: expense.category,
+        amount: expense.amount,
+        remarks: expense.remarks,
+        expenseDate: expense.expenseDate
+      });
+    }
+    else {
+      console.log("no expense found for this id");
+      alert("Expense not found for this id, please select another expese to edit");
+      this.router.navigate(['../']); // Redirect to another page when "no" is confirmed
+    }
   }
 
 
-onSubmit() {
-  console.log("let's submit expense");
-  console.log(this.expenseForm.value);
+  onSubmit() {
+    const expenseDataToAdd: Expense =
+      {
+        id: this.isEditMode ? this.expenseForm.value.id : Date.now().toString(),
+        category: this.expenseForm.value.category,
+        remarks: this.expenseForm.value.remarks,
+        amount: this.expenseForm.value.amount,
+        expenseDate: this.expenseForm.value.expenseDate
+      };
 
-  const expenseDataToAdd: Expense = 
-    { id: Date.now().toString(),
-      category: this.expenseForm.value.category,
-      remarks: this.expenseForm.value.remarks,
-      amount: this.expenseForm.value.amount,
-      expenseDate: this.expenseForm.value.expenseDate}
-  ;
+    if (this.isEditMode) {
+      console.log("edit mode is on");
+      console.log(expenseDataToAdd);
+      console.log(this.expenseForm.value);
 
-  this.store.dispatch(addExpense(expenseDataToAdd));
+      this.store.dispatch(editExpense(expenseDataToAdd));
+      alert("Expense Saved");
+      this.router.navigate(['../']);
+      
+    }
+    else {
+      console.log("Add new expense mode");
 
-  this.expenseForm.reset();
+      this.store.dispatch(addExpense(expenseDataToAdd));
+      this.showModal = true;
 
-  this.showModal = true;
+      const confirmAddAnother = confirm('Expense added successfully! Do you want to add another expense?');
+      if (confirmAddAnother) {
+        // Logic to open a new form or reset the form for another expense
 
-  const confirmAddAnother = confirm('Expense added successfully! Do you want to add another expense?');
-  if (confirmAddAnother) {
-    // Logic to open a new form or reset the form for another expense
+      } else {
+        this.router.navigate(['../']); // Redirect to another page when "no" is confirmed
+      }
+
+      
+
+    }
+
+    this.expenseForm.reset();
+
     
-  } else {
-    this.router.navigate(['../']); // Redirect to another page when "no" is confirmed
+
+
   }
-  
-  
-}
 
 }

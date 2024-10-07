@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { addExpense, deleteExpense } from "./tracker.actions";
+import { addExpense, deleteExpense, editExpense } from "./tracker.actions";
 import type { Expense } from "../expenses/models/expense.model";
 
 
@@ -15,6 +15,16 @@ export const trackerReducer = createReducer(
         console.log(state);
         console.log(action);
         const updatedExpenses = [...state, action];
+        return updatedExpenses
+        
+    }),
+    on(editExpense, (state, action) => {
+        console.log(state);
+        console.log(action);
+        const updatedExpenses = state.map(expense => 
+            expense.id === action.id ? { ...expense, ...action } : expense);
+
+        console.log(updatedExpenses);
         return updatedExpenses
         
     }),

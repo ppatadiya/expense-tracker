@@ -11,6 +11,13 @@ export const addExpense = createAction(
     props<Expense>()
 );
 
+export const editExpense = createAction(
+    '[Expense] Edit',
+    props<Expense>()
+);
+
+
+
 export const deleteExpense = createAction(
     '[Expense] Delete',
     props<Expense>()
