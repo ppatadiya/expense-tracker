@@ -6,21 +6,22 @@ import { Store } from '@ngrx/store';
 import { addExpense, editExpense } from '../../store/tracker.actions';
 import { Expense } from '../models/expense.model';
 import { selectTrackerState } from '../../store/tracker.selector';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ExpensesService } from '../expenses.service';
 
 @Component({
   selector: 'app-add-or-update-expense',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './add-expense.component.html',
   styleUrl: './add-expense.component.css'
 })
 export class AddExpenseComponent implements OnInit {
 
+
   categories = EXPENSE_CATEGORIES;
   expenseForm: any;
-  showModal: boolean = false;
+  isExpenseAdded: boolean = false;
 
   isEditMode: boolean = false;
   expenseId: string | null = null;
@@ -91,20 +92,21 @@ export class AddExpenseComponent implements OnInit {
     else {
 
       this.store.dispatch(addExpense(expenseDataToAdd));
-      this.showModal = true;
-
-      const confirmAddAnother = confirm('Expense added successfully! Do you want to add another expense?');
-      if (confirmAddAnother) {
-        
-
-      } else {
-        this.router.navigate(['../']); // Redirect to another page when "no" is confirmed
-      }
+      this.isExpenseAdded = true;
 
     }
 
     this.expenseForm.reset();
 
+  }
+
+  redirectToAllExpense() {
+    console.log("redirect to all exp");
+    this.router.navigate(['../']); // Redirect to another page when "no" is confirmed
+    
+  }
+  addMoreExpense() {
+    this.isExpenseAdded = false;
   }
 
 }
