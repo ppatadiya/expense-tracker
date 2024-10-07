@@ -82,8 +82,6 @@ export class TrackerEffects {
             ofType(init),
             withLatestFrom(this.store.select(selectTrackerState)),
             tap(([action, tracker])=>{
-                console.log(action);
-                console.log(tracker);
                 
                 localStorage.setItem('expenses', JSON.stringify(tracker));
 

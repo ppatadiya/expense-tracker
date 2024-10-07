@@ -40,7 +40,6 @@ export class AddExpenseComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    console.log(this.categories);
     // Check if we're in edit mode (if the route contains an 'id')
     this.route.paramMap.subscribe(params => {
       this.expenseId = params.get('id');  // Get the 'id' from the route if present
@@ -57,7 +56,6 @@ export class AddExpenseComponent implements OnInit {
   loadExpenseData(id: string): void {
     const expense = this.expenseService.getExpenseById(id);  // Fetch from service or state
     if (expense) {
-      console.log(expense);
       this.expenseForm.patchValue({
         id: expense.id,
         category: expense.category,
@@ -67,7 +65,6 @@ export class AddExpenseComponent implements OnInit {
       });
     }
     else {
-      console.log("no expense found for this id");
       alert("Expense not found for this id, please select another expese to edit");
       this.router.navigate(['../']); // Redirect to another page when "no" is confirmed
     }
@@ -85,37 +82,28 @@ export class AddExpenseComponent implements OnInit {
       };
 
     if (this.isEditMode) {
-      console.log("edit mode is on");
-      console.log(expenseDataToAdd);
-      console.log(this.expenseForm.value);
-
+      
       this.store.dispatch(editExpense(expenseDataToAdd));
       alert("Expense Saved");
       this.router.navigate(['../']);
       
     }
     else {
-      console.log("Add new expense mode");
 
       this.store.dispatch(addExpense(expenseDataToAdd));
       this.showModal = true;
 
       const confirmAddAnother = confirm('Expense added successfully! Do you want to add another expense?');
       if (confirmAddAnother) {
-        // Logic to open a new form or reset the form for another expense
+        
 
       } else {
         this.router.navigate(['../']); // Redirect to another page when "no" is confirmed
       }
 
-      
-
     }
 
     this.expenseForm.reset();
-
-    
-
 
   }
 

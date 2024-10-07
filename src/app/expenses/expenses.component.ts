@@ -1,12 +1,10 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { EXPENSES } from './data/expenses-data';
 import type { Expense } from './models/expense.model';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { deleteExpense } from '../store/tracker.actions';
 import { selectTrackerState } from '../store/tracker.selector';
-import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ExpensesService } from './expenses.service';
 import { Chart, BarController, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
@@ -53,11 +51,9 @@ export class ExpensesComponent implements OnInit {
   }
 
   filterExpenses() {
-    console.log('Selected month:', this.selectedMonth);
-
+    
     this.expenses = this.expensesService.getExpenseByMonth(this.selectedMonth);
-    console.log(this.expenses);
-
+    
     this.totalAmount = this.expenses.reduce((acc, expense) => acc + expense.amount, 0);
 
       // Group expenses by category and calculate the total amount for each category
@@ -70,40 +66,26 @@ export class ExpensesComponent implements OnInit {
         return acc;
       }, {} as { [key: string]: { expenses: Expense[], totalAmount: number } });
 
-      console.log('Grouped expenses with totals:', this.groupedExpenses);
-
       if (this.expenses.length > 0) {
         this.generateChart();
       }
       
 
   }
-  
 
   deleteExpense(expenseToDelete: Expense) {
-    console.log("Let's delete expense");
-    console.log(expenseToDelete);
-    
     
     this.store.dispatch(deleteExpense(expenseToDelete));
     
   }
 
   generateChart(){
-    console.log("Let's generate the chart");
-    console.log(this.groupedExpenses);
-
+    
     // Destroy the existing chart instance if it exists
     if (this.myChart) {
-      console.log("chart is there");
-      
       this.myChart.destroy();
     }
-    else{
-      console.log("chart is not there");
-      
-    }
-
+    
     const chartData = {
       labels: Object.keys(this.groupedExpenses), // Categories as labels
       datasets: [

@@ -28,8 +28,6 @@ export class ExpensesService implements OnInit {
         });
         return this.expenses;
     }
-    
-
 
     addExpense() {
         console.log("I will add task soon to http");
@@ -56,13 +54,9 @@ export class ExpensesService implements OnInit {
         
             return matchingExpense;
         } else {
-            console.log("no id found in service file");
             return null;
         }
 
-        
-        
-        //return  { id: '1', category: 'Grocery', remarks: 'Potato bag 4', amount: 120, expenseDate: '2024-10-05' };
     }
 
     getExpenseByMonth(month: string){
@@ -72,7 +66,7 @@ export class ExpensesService implements OnInit {
 
         const filteredExpense = this.expenses.filter(expense => {
             const expenseDate = new Date(expense.expenseDate);
-            return expenseDate.getMonth() + 1 === +month; // Adjust month index as needed
+            return expenseDate.getMonth() + 1 === +month;
           });
         
 
