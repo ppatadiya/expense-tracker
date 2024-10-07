@@ -71,7 +71,7 @@
 
     <!-- Other content of your component -->
 
-    <div class="button-container">
+    <div class="button-container" *ngIf="expenses.length !== 0">
       <a routerLink="/add-expense" class="add-expense-button">Add Expense</a>
     </div>
 

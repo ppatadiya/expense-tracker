@@ -1,0 +1,34 @@
+.upcoming-features-container {
+    background-color: #f9f9f9; /* Light background for contrast */
+    padding: 20px; /* Padding around the container */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    max-width: 600px; /* Limit width for better readability */
+    margin: 20px auto; /* Center the container */
+  }
+  
+  h2 {
+    font-size: 1.5em; /* Increase heading size */
+    color: #333; /* Dark text color */
+    text-align: center; /* Center the heading */
+    margin-bottom: 15px; /* Space below heading */
+  }
+  
+  .features-list {
+    list-style-type: disc; /* Use bullet points */
+    padding-left: 20px; /* Space for bullet points */
+  }
+  
+  .feature-item {
+    margin-bottom: 10px; /* Space between items */
+    font-size: 1.1em; /* Slightly larger font size */
+    color: #555; /* Darker gray for readability */
+  }
+  
+  .note {
+    margin-top: 15px; /* Space above the note */
+    font-style: italic; /* Italic style for emphasis */
+    text-align: center; /* Center the note */
+    color: #777; /* Lighter gray for the note */
+  }
+  
