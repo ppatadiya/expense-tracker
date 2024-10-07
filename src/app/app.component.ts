@@ -35,6 +35,14 @@ export class AppComponent implements OnInit{
       // Parse the JSON string into an array of Expense objects
       expenseDataToAdd = JSON.parse(storedExpenses);
 
+      // Check if it's an array and has more than 0 items
+      if (Array.isArray(expenseDataToAdd) && expenseDataToAdd.length > 0) {
+        console.log('Expenses are present:', expenseDataToAdd);
+      } else {
+        console.log('No expenses or empty array');
+        expenseDataToAdd = EXPENSES;
+      }
+
       // Log the parsed expenses to the console
       console.log(expenseDataToAdd);
     } else {

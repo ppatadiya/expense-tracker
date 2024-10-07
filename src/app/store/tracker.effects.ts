@@ -69,7 +69,8 @@ export class TrackerEffects {
                 console.log(action);
                 console.log(tracker);
                 console.log("I am in effect to delete expese");
-
+                
+                
                 localStorage.setItem('expenses', JSON.stringify(tracker));
                 
 
@@ -89,7 +90,7 @@ export class TrackerEffects {
             tap(([action, tracker])=>{
                 console.log(action);
                 console.log(tracker);
-
+                
                 localStorage.setItem('expenses', JSON.stringify(tracker));
 
             })
