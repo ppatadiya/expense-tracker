@@ -19,8 +19,15 @@ export class TrackerEffects {
             tap(([action, tracker])=>{
                 console.log(action);
                 console.log(tracker);
-                console.log("I am in effect to add expense");
-                this.expensesService.addExpense();
+
+                localStorage.setItem('expenses', JSON.stringify(tracker));
+
+
+                
+                
+                
+                // To Do
+                //this.expensesService.updateLocalStorage();
                 
             })
         ),
