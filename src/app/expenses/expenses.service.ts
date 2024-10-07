@@ -64,5 +64,24 @@ export class ExpensesService implements OnInit {
         
         //return  { id: '1', category: 'Grocery', remarks: 'Potato bag 4', amount: 120, expenseDate: '2024-10-05' };
     }
+
+    getExpenseByMonth(month: string){
+        console.log(month);
+        this.getAllExpense();
+        console.log(this.expenses);
+
+        const filteredExpense = this.expenses.filter(expense => {
+            const expenseDate = new Date(expense.expenseDate);
+            console.log(expenseDate);
+            console.log(expenseDate.getMonth()+1);
+            console.log("-------");
+            return expenseDate.getMonth() + 1 === +month; // Adjust month index as needed
+          });
+        
+
+        return filteredExpense;
+
+
+    }
     
 }

@@ -104,3 +104,72 @@
 .action-button:hover {
     opacity: 0.8;
 }
+
+.expense-list {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .no-expenses {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .no-expenses button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  
+  }
+  
+  .no-expenses button:hover {
+    background-color: #0069d9;
+  }
+  
+  .expense-item {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .expense-icon {
+    margin-right: 10px;
+    font-size: 18px;
+  }
+  
+  .expense-details {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .expense-type, .expense-description, .expense-amount, .transaction-date {
+    margin-right: 10px;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .action-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  
+  }
+  
+  .action-button:hover {
+    background-color:
+   #0069d9;
+  }
