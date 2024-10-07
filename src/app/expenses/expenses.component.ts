@@ -24,7 +24,8 @@ export class ExpensesComponent implements OnInit {
   private expensesService = inject(ExpensesService);
 
 
-  expenses$: Observable<Expense[]> | undefined; // Observable for the expenses array
+  //expenses$: Observable<Expense[]> | undefined; // Observable for the expenses array
+  expenses$ = this.store.select(selectTrackerState);
 
   expenses: Expense[] = [];
 
@@ -33,8 +34,11 @@ export class ExpensesComponent implements OnInit {
   constructor(private store: Store){}
 
   ngOnInit(): void {
-
-    this.filterExpenses();
+    this.expenses$.subscribe(expenses => {
+      this.expenses = expenses;
+      this.filterExpenses();
+    });
+    
 
   }
 
@@ -56,5 +60,31 @@ export class ExpensesComponent implements OnInit {
     this.store.dispatch(deleteExpense(expenseToDelete));
     
   }
+
+  /*calculateTotalSpendByCategory() {
+    const categoryMap = {};
+    this.expenses.forEach(expense => {
+      const category = expense.category;
+      if (categoryMap[category]) {
+        categoryMap[category] += expense.amount;
+      } else {
+        categoryMap[category] = expense.amount;
+      }
+    });
+    return categoryMap;
+  }
+  
+  calculateTotalSpendByMonth() {
+    const monthMap = {};
+    this.expenses.forEach(expense => {
+      const month = new Date(expense.expenseDate).getMonth(); // Get month index (0-11)
+      if (monthMap[month]) {
+        monthMap[month] += expense.amount;
+      } else {
+        monthMap[month] = expense.amount;
+      }
+    });
+    return monthMap;
+  }*/
 
 }

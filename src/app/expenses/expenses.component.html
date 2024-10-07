@@ -21,6 +21,35 @@
         
     </div>
 
+    <div class="summary-container">
+      <h2>Summary</h2>
+      <ul>
+        <!--<li *ngFor="let category of totalSpendByCategory | keyvalue">
+          {{ category.key }}: ${{ category.value }}
+        </li>-->
+        <li>
+          Travel : $500 
+        </li>
+        <li>
+          Travel : $500 
+        </li>
+        <li>
+          Travel : $500 
+        </li>
+        <li>
+          Travel : $500 
+        </li>
+      </ul>
+      <ul>
+        <!--<li *ngFor="let month of totalSpendByMonth | keyvalue">
+          {{ getMonthName(month.key) }}: ${{ month.value }}
+        </li>-->
+        <li>
+          Total spend for January : $500 
+        </li>
+      </ul>
+    </div>
+
     <div class="expense-list">
 
         <div *ngIf="expenses.length === 0" class="no-expenses">
