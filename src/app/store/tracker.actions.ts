@@ -1,10 +1,10 @@
 import { createAction, props } from "@ngrx/store";
 import { type Expense } from "../expenses/models/expense.model";
 
-/*export const init = createAction(
+export const init = createAction(
     '[Counter] Init',
-    props{Expense[]>()
-);*/
+    props<{ expenses: Expense[] }>() // Wrap array in an object
+);
 
 export const addExpense = createAction(
     '[Expense] Add',

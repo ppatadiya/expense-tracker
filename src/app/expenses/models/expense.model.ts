@@ -3,8 +3,8 @@ export interface Expense {
     category: string;
     remarks: string;
     amount: number;
-    expenseDate: Date;
-  }[]
+    expenseDate: string;
+  }[];
 
   
 export interface ExpenseCategory {

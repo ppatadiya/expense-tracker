@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { addExpense, deleteExpense, editExpense } from "./tracker.actions";
+import { addExpense, deleteExpense, editExpense, init } from "./tracker.actions";
 import type { Expense } from "../expenses/models/expense.model";
 
 
@@ -39,16 +39,13 @@ export const trackerReducer = createReducer(
         /*const tempData: Expense[] = [{ id: '1000', category: 'eeeeee', remarks: 'poooootato', amount: 1200, expenseDate: new Date('2024-10-05') }];
         return tempData*/
     }),
-    /*on(init, (state, action) => {
+    on(init, (state, {expenses}) => {
         console.log(state);
-        console.log(action);
-        console.log("in begining of app");
-        //const updatedExpenses = [...state, action];
-        const tempData: Expense[] = [{ id: '1000', category: 'eeeeee', remarks: 'poooootato', amount: 1200, expenseDate: new Date('2024-10-05') },
-                                    { id: '1000', category: 'eeeeee', remarks: 'poooootato', amount: 1200, expenseDate: new Date('2024-10-05') },];
-        return tempData
+        console.log(expenses);
         
-    }),*/
+        return expenses;
+        
+    }),
     
 
 );

@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { addExpense, deleteExpense, editExpense } from "./tracker.actions";
+import { addExpense, deleteExpense, editExpense, init } from "./tracker.actions";
 import { tap, withLatestFrom } from "rxjs";
 import { selectExpense } from "./tracker.selector";
 import { ExpensesService } from "../expenses/expenses.service";
@@ -75,6 +75,23 @@ export class TrackerEffects {
 
                 this.expensesService.deleteExpense();
                 
+            })
+        ),
+        {
+            dispatch: false
+        }
+    );
+
+    initExpense = createEffect(
+        () => this.actions$.pipe(
+            ofType(init),
+            withLatestFrom(this.store.select(selectExpense)),
+            tap(([action, tracker])=>{
+                console.log(action);
+                console.log(tracker);
+
+                localStorage.setItem('expenses', JSON.stringify(tracker));
+
             })
         ),
         {

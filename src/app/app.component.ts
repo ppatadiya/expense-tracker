@@ -4,6 +4,7 @@ import { HeaderComponent } from "./header/header.component";
 import { Store } from '@ngrx/store';
 import { Expense } from './expenses/models/expense.model';
 import { EXPENSES } from './expenses/data/expenses-data';
+import { init } from './store/tracker.actions';
 
 @Component({
   selector: 'app-root',
@@ -46,7 +47,7 @@ export class AppComponent implements OnInit{
   
     console.log(expenseDataToAdd);
     
-    //this.store.dispatch(init(expenseDataToAdd));
+    this.store.dispatch(init({expenses: expenseDataToAdd}));
     
   }
 
