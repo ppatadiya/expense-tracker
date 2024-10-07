@@ -44,6 +44,8 @@ export class TrackerEffects {
                 console.log(action);
                 console.log(tracker);
                 console.log("I am in effect to delete expese");
+
+                localStorage.setItem('expenses', JSON.stringify(tracker));
                 
 
                 this.expensesService.deleteExpense();

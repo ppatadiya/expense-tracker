@@ -41,9 +41,12 @@ export class ExpensesComponent implements OnInit {
     
   }
 
-  deleteExpense() {
+  deleteExpense(expenseToDelete: Expense) {
     console.log("Let's delete expense");
-    this.store.dispatch(deleteExpense({valueofmychoice: 2}));
+    console.log(expenseToDelete);
+    
+    
+    this.store.dispatch(deleteExpense(expenseToDelete));
     
   }
 

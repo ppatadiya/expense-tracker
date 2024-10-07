@@ -33,7 +33,7 @@
             </div>
             <div class="action-buttons">
               <button class="action-button edit-button" [routerLink]="['/edit-expense', expense.id]">Edit</button>
-              <button class="action-button delete-button" (click)="deleteExpense()">Delete</button>
+              <button class="action-button delete-button" (click)="deleteExpense(expense)">Delete</button>
             </div>
           </div>
 

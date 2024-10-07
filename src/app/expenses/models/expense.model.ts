@@ -4,7 +4,7 @@ export interface Expense {
     remarks: string;
     amount: number;
     expenseDate: Date;
-  }
+  }[]
 
   
 export interface ExpenseCategory {
