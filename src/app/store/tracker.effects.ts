@@ -17,8 +17,7 @@ export class TrackerEffects {
             ofType(addExpense),
             withLatestFrom(this.store.select(selectExpense)),
             tap(([action, tracker])=>{
-                console.log(action);
-                console.log(tracker);
+                
 
                 localStorage.setItem('expenses', JSON.stringify(tracker));
 
@@ -41,9 +40,7 @@ export class TrackerEffects {
             ofType(editExpense),
             withLatestFrom(this.store.select(selectExpense)),
             tap(([action, tracker])=>{
-                console.log(action);
-                console.log(tracker);
-                console.log("I am in effect function of editExpnese");
+               
 
                 localStorage.setItem('expenses', JSON.stringify(tracker));
 
@@ -66,9 +63,6 @@ export class TrackerEffects {
             ofType(deleteExpense),
             withLatestFrom(this.store.select(selectExpense)),
             tap(([action, tracker])=>{
-                console.log(action);
-                console.log(tracker);
-                console.log("I am in effect to delete expese");
                 
                 
                 localStorage.setItem('expenses', JSON.stringify(tracker));

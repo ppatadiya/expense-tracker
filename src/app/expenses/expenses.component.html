@@ -22,22 +22,13 @@
     </div>
 
     <div class="summary-container">
-      <h2>Summary</h2>
+      <h4>Summary</h4>
       <ul>
         <!--<li *ngFor="let category of totalSpendByCategory | keyvalue">
           {{ category.key }}: ${{ category.value }}
         </li>-->
-        <li>
-          Travel : $500 
-        </li>
-        <li>
-          Travel : $500 
-        </li>
-        <li>
-          Travel : $500 
-        </li>
-        <li>
-          Travel : $500 
+        <li *ngFor="let category of groupedExpenses | keyvalue">
+          {{ category.key }} - Total: {{ category.value.totalAmount | currency }}
         </li>
       </ul>
       <ul>
@@ -45,10 +36,12 @@
           {{ getMonthName(month.key) }}: ${{ month.value }}
         </li>-->
         <li>
-          Total spend for January : $500 
+          <b>Total spent : ${{totalAmount}} </b>
         </li>
       </ul>
     </div>
+
+    
 
     <div class="expense-list">
 
@@ -64,7 +57,7 @@
               <div class="expense-type">{{ expense.category }}</div>
               <div class="expense-description">{{ expense.remarks }}</div>
               <div class="expense-amount"> ${{ expense.amount }}</div>
-              <div class="transaction-date">Transaction Date: {{ expense.expenseDate | date:'MMM d, yyyy' }}</div>
+              <div class="transaction-date"> {{ expense.expenseDate | date:'MMM d, yyyy' }}</div>
             </div>
             <div class="action-buttons">
               <button class="action-button edit-button" [routerLink]="['/edit-expense', expense.id]">Edit</button>

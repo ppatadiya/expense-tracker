@@ -19,12 +19,12 @@ export class ExpensesService implements OnInit {
 
     getAllExpense(){
         this.expenses$ = this.store.select(selectTrackerState);
-        console.log(this.expenses$);
+        
 
         // Subscribe to the Observable to get the actual value
         this.expenses$.subscribe((data) => {
         this.expenses = data; // Store the value in the component
-        console.log(this.expenses); // Log the value received from the store
+        
         });
         return this.expenses;
     }
@@ -45,15 +45,15 @@ export class ExpensesService implements OnInit {
     }
     
     getExpenseById(id: string){
-        console.log("I am in service file to get expensebyId");
+        
         this.getAllExpense();
-        console.log(this.expenses);
+        
 
         // Assuming you have an array of expenses and want to find an expense by its id
         const matchingExpense = this.expenses.find(expense => expense.id === id);
 
         if (matchingExpense) {
-        console.log('Expense found:', matchingExpense);
+        
             return matchingExpense;
         } else {
             console.log("no id found in service file");
@@ -66,15 +66,12 @@ export class ExpensesService implements OnInit {
     }
 
     getExpenseByMonth(month: string){
-        console.log(month);
+        
         this.getAllExpense();
-        console.log(this.expenses);
+        
 
         const filteredExpense = this.expenses.filter(expense => {
             const expenseDate = new Date(expense.expenseDate);
-            console.log(expenseDate);
-            console.log(expenseDate.getMonth()+1);
-            console.log("-------");
             return expenseDate.getMonth() + 1 === +month; // Adjust month index as needed
           });
         

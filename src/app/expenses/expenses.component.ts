@@ -24,12 +24,15 @@ export class ExpensesComponent implements OnInit {
   private expensesService = inject(ExpensesService);
 
 
-  //expenses$: Observable<Expense[]> | undefined; // Observable for the expenses array
+  
   expenses$ = this.store.select(selectTrackerState);
+  groupedExpenses: { [key: string]: { expenses: Expense[], totalAmount: number } } = {};
 
   expenses: Expense[] = [];
 
   selectedMonth: string = (new Date().getMonth() + 1).toString().padStart(2, '0');
+  totalAmount: number = 0;
+  
 
   constructor(private store: Store){}
 
@@ -47,8 +50,21 @@ export class ExpensesComponent implements OnInit {
 
     this.expenses = this.expensesService.getExpenseByMonth(this.selectedMonth);
     console.log(this.expenses);
-    
-    // Implement your filtering logic here
+
+    this.totalAmount = this.expenses.reduce((acc, expense) => acc + expense.amount, 0);
+
+      // Group expenses by category and calculate the total amount for each category
+      this.groupedExpenses = this.expenses.reduce((acc, expense) => {
+        if (!acc[expense.category]) {
+          acc[expense.category] = { expenses: [], totalAmount: 0 };
+        }
+        acc[expense.category].expenses.push(expense);
+        acc[expense.category].totalAmount += expense.amount; // Calculate total for the category
+        return acc;
+      }, {} as { [key: string]: { expenses: Expense[], totalAmount: number } });
+
+      console.log('Grouped expenses with totals:', this.groupedExpenses);
+
   }
   
 
@@ -61,30 +77,6 @@ export class ExpensesComponent implements OnInit {
     
   }
 
-  /*calculateTotalSpendByCategory() {
-    const categoryMap = {};
-    this.expenses.forEach(expense => {
-      const category = expense.category;
-      if (categoryMap[category]) {
-        categoryMap[category] += expense.amount;
-      } else {
-        categoryMap[category] = expense.amount;
-      }
-    });
-    return categoryMap;
-  }
-  
-  calculateTotalSpendByMonth() {
-    const monthMap = {};
-    this.expenses.forEach(expense => {
-      const month = new Date(expense.expenseDate).getMonth(); // Get month index (0-11)
-      if (monthMap[month]) {
-        monthMap[month] += expense.amount;
-      } else {
-        monthMap[month] = expense.amount;
-      }
-    });
-    return monthMap;
-  }*/
+
 
 }

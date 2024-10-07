@@ -37,23 +37,23 @@ export class AppComponent implements OnInit{
 
       // Check if it's an array and has more than 0 items
       if (Array.isArray(expenseDataToAdd) && expenseDataToAdd.length > 0) {
-        console.log('Expenses are present:', expenseDataToAdd);
+        
       } else {
-        console.log('No expenses or empty array');
+        
         expenseDataToAdd = EXPENSES;
       }
 
       // Log the parsed expenses to the console
-      console.log(expenseDataToAdd);
+      
     } else {
-      console.log('No expenses found in local storage.');
+      
 
       expenseDataToAdd = EXPENSES;
       
     }
     
   
-    console.log(expenseDataToAdd);
+    
     
     this.store.dispatch(init({expenses: expenseDataToAdd}));
     
