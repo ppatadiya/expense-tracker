@@ -21,6 +21,7 @@
     text-decoration: underline; /* Underline on hover for better UX */
 }
 
-.selected{
-    background-color: #91e24e;
+.selected {
+    background-color: #4169E1; /* Royal Blue */
+    color: white; /* White text for contrast */
 }
