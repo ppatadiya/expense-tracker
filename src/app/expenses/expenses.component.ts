@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { EXPENSES } from './data/expenses-data';
 import type { Expense } from './models/expense.model';
 import { CommonModule } from '@angular/common';
@@ -9,6 +9,7 @@ import { selectTrackerState } from '../store/tracker.selector';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ExpensesService } from './expenses.service';
+import { Chart, BarController, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
 
 
@@ -22,6 +23,7 @@ import { ExpensesService } from './expenses.service';
 export class ExpensesComponent implements OnInit {
 
   private expensesService = inject(ExpensesService);
+  
 
 
   
@@ -29,7 +31,9 @@ export class ExpensesComponent implements OnInit {
   groupedExpenses: { [key: string]: { expenses: Expense[], totalAmount: number } } = {};
 
   expenses: Expense[] = [];
+  @ViewChild('myChart', { static: false }) myChartElement!: ElementRef<HTMLCanvasElement>;
 
+  myChart: Chart | null = null;
   selectedMonth: string = (new Date().getMonth() + 1).toString().padStart(2, '0');
   totalAmount: number = 0;
   
@@ -37,6 +41,9 @@ export class ExpensesComponent implements OnInit {
   constructor(private store: Store){}
 
   ngOnInit(): void {
+
+    Chart.register(BarController, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
     this.expenses$.subscribe(expenses => {
       this.expenses = expenses;
       this.filterExpenses();
@@ -65,6 +72,11 @@ export class ExpensesComponent implements OnInit {
 
       console.log('Grouped expenses with totals:', this.groupedExpenses);
 
+      if (this.expenses.length > 0) {
+        this.generateChart();
+      }
+      
+
   }
   
 
@@ -77,6 +89,53 @@ export class ExpensesComponent implements OnInit {
     
   }
 
+  generateChart(){
+    console.log("Let's generate the chart");
+    console.log(this.groupedExpenses);
 
+    // Destroy the existing chart instance if it exists
+    if (this.myChart) {
+      console.log("chart is there");
+      
+      this.myChart.destroy();
+    }
+    else{
+      console.log("chart is not there");
+      
+    }
+
+    const chartData = {
+      labels: Object.keys(this.groupedExpenses), // Categories as labels
+      datasets: [
+        {
+          label: 'Total Spend',
+          data: Object.values(this.groupedExpenses).map(group => group.totalAmount), // Only map totalAmount
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        }
+      ]
+    };
+
+    const ctx = document.getElementById('myChart') as HTMLCanvasElement;
+    
+    // Create a new chart instance and assign it to myChart
+    this.myChart = new Chart(ctx, {
+      type: 'bar',
+      data: chartData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+    
+    
+
+  }
 
 }
+
+

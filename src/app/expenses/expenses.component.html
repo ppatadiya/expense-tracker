@@ -21,7 +21,7 @@
         
     </div>
 
-    <div class="summary-container">
+    <div class="summary-container" [ngClass]="{ 'hidden': expenses.length === 0 }">
       <h4>Summary</h4>
       <ul>
         <!--<li *ngFor="let category of totalSpendByCategory | keyvalue">
@@ -39,6 +39,7 @@
           <b>Total spent : ${{totalAmount}} </b>
         </li>
       </ul>
+      <canvas id="myChart"></canvas>
     </div>
 
     
