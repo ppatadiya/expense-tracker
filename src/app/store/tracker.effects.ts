@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { addExpense, deleteExpense, editExpense, init } from "./tracker.actions";
 import { tap, withLatestFrom } from "rxjs";
-import { selectExpense } from "./tracker.selector";
+import { selectTrackerState } from "./tracker.selector";
 import { ExpensesService } from "../expenses/expenses.service";
 
 
@@ -15,7 +15,7 @@ export class TrackerEffects {
     addExpense = createEffect(
         () => this.actions$.pipe(
             ofType(addExpense),
-            withLatestFrom(this.store.select(selectExpense)),
+            withLatestFrom(this.store.select(selectTrackerState)),
             tap(([action, tracker])=>{
                 
 
@@ -38,7 +38,7 @@ export class TrackerEffects {
     editExpense = createEffect(
         () => this.actions$.pipe(
             ofType(editExpense),
-            withLatestFrom(this.store.select(selectExpense)),
+            withLatestFrom(this.store.select(selectTrackerState)),
             tap(([action, tracker])=>{
                
 
@@ -61,7 +61,7 @@ export class TrackerEffects {
     deleteExpense = createEffect(
         () => this.actions$.pipe(
             ofType(deleteExpense),
-            withLatestFrom(this.store.select(selectExpense)),
+            withLatestFrom(this.store.select(selectTrackerState)),
             tap(([action, tracker])=>{
                 
                 
@@ -80,7 +80,7 @@ export class TrackerEffects {
     initExpense = createEffect(
         () => this.actions$.pipe(
             ofType(init),
-            withLatestFrom(this.store.select(selectExpense)),
+            withLatestFrom(this.store.select(selectTrackerState)),
             tap(([action, tracker])=>{
                 console.log(action);
                 console.log(tracker);
